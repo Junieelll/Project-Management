@@ -1,0 +1,291 @@
+html {
+    background-color: #C2C5D2;
+  }
+  
+  .loginContainer {
+    margin: 5vh auto;
+    padding: 0;
+    width: 78%;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  
+  .container1,
+  .container2 {
+    flex-grow: 1;
+    height: 100%;
+  }
+  
+  .container1 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    background: #171D35;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-right: -10px;
+    width: 52%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #devsphere-icon {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+  }
+  
+  .container2 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    background: #fff;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-left: -10px;
+    width: 52%;
+  }
+  
+  .container2 #welcome,
+  #quote,
+  .google {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #welcome {
+    font-size: 40px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin: 23vh 0 4vh 0;
+  }
+  
+  #quote {
+    font-size: 18px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin: 0 0 10vh 0;
+  }
+  
+  .button-desc {
+    font-size: 18px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin-left: 5px;
+  }
+  
+  #strong {
+    font-weight: bold;
+    text-indent: 4px;
+  }
+  
+  .google {
+    background: #9DB2C5;
+    padding: 3px 0;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    justify-content: center;
+    transition: ease 0.230s;
+    cursor: pointer;
+  }
+  
+  .google:hover {
+    opacity: 80%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #9DB2C5;
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    width: 380px;
+    margin: 0 auto;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  #strong2 {
+    font-weight: bold;
+    text-indent: 4px;
+  }
+  
+  #google-icon {
+    margin: auto 10px auto 0;
+    height: 25px;
+    width: 100%;
+    max-width: 25px;
+  }
+  
+  @media (max-width: 1600px) {
+    .loginContainer {
+      width: 85%;
+    }
+  
+    #welcome {
+      font-size: 36px;
+    }
+  
+    #quote {
+      font-size: 16px;
+    }
+  
+    .button-desc {
+      font-size: 16px;
+    }
+  
+    #google-icon {
+      max-width: 22px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 1200px) {
+    .loginContainer {
+      width: 90%;
+    }
+  
+    #welcome {
+      font-size: 32px;
+    }
+  
+    #quote {
+      font-size: 15px;
+    }
+  
+    .button-desc {
+      font-size: 15px;
+    }
+  
+    #google-icon {
+      max-width: 20px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    #welcome {
+      font-size: 28px;
+    }
+  
+    #quote {
+      font-size: 14px;
+    }
+  
+    .google {
+      width: 300px;
+    }
+  
+    .button-desc {
+      font-size: 14px;
+    }
+  
+    #google-icon {
+      max-width: 18px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .loginContainer {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .container1 {
+      display: none;
+    }
+  
+    .container2 {
+      flex-basis: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+      position: relative;
+      padding-top: 20px;
+    }
+  
+    #devsphere-icon {
+      width: 150px;
+      height: auto;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    #welcome {
+      font-size: 24px;
+      margin-top: 10vh;
+    }
+  
+    #quote {
+      font-size: 14px;
+    }
+  
+    .google {
+      width: 250px;
+    }
+  
+    .button-desc {
+      font-size: 13px;
+    }
+  
+    #google-icon {
+      max-width: 16px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #welcome {
+      font-size: 20px;
+    }
+  
+    #quote {
+      font-size: 12px;
+    }
+  
+    #devsphere-icon {
+      width: 120px;
+      top: 5px;
+    }
+  
+    .google {
+      width: 200px;
+    }
+  
+    .button-desc {
+      font-size: 12px;
+    }
+  
+    #google-icon {
+      max-width: 14px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    #welcome {
+      font-size: 18px;
+    }
+  
+    #quote {
+      font-size: 10px;
+    }
+  
+    #devsphere-icon {
+      width: 100px;
+    }
+  
+    .google {
+      width: 180px;
+    }
+  
+    .button-desc {
+      font-size: 11px;
+    }
+  
+    #google-icon1 {
+      max-width: 12px;
+      height: auto;
+    }
+  }
