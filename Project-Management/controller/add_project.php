@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $createdDate = date('Y-m-d H:i:s');
     $members = $input['members']; 
 
-    $query = "INSERT INTO projects (project_manager, project_name, description, created_date) 
+    $query = "INSERT INTO project (project_manager, project_name, description, created_date) 
               VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssss", $projectManager, $projectName, $description, $createdDate);

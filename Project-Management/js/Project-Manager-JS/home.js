@@ -16,4 +16,4 @@ function openTab(event, tabName) {
 document.querySelector('.dropdown-btn.all-task').addEventListener('click', function () {
     this.parentElement.classList.toggle('active');
 });
-  
+

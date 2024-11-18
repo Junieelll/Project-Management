@@ -508,7 +508,7 @@
         return;
     }
 
-    fetch('/PROJECT-MANAGEMENT/controller/add_project.php', {
+    fetch('../controller/add_project.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -546,7 +546,7 @@ searchInput.addEventListener('input', function () {
         return;
     }
 
-    fetch('/PROJECT-MANAGEMENT/controller/search_user.php', {
+    fetch('../controller/search_user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -621,7 +621,7 @@ function showToast(message, type = 'info') {
 function fetchProjects() {
     const projectsContainer = document.querySelector('.projects');
 
-    fetch('/PROJECT-MANAGEMENT/controller/fetch_projects.php', {
+    fetch('../controller/fetch_projects.php', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

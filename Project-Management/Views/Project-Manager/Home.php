@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="stylesheet" href="../../styles/Project-Manager-Styles/home.css" />
+    <script></script>
     <link
       rel="stylesheet"
       href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css"
@@ -15,6 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <script src="../../js/Project-Manager-JS/drag.js" defer></script>
   </head>
   <body>
     <nav>
@@ -122,7 +124,9 @@
                   </div>
                 </div>
                 <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
+                <button id="confirm-bulk-status-change">Confirm Bulk Status Change</button>
             </div>
+           
           </div>
           
             <div class="project-content">
@@ -139,20 +143,22 @@
               </div>
               
               <div class="cards-container">
-                <div class="backlogs">
-                    <h5>BACKLOG</h5>
+                <div class="backlogs" id="Backlog">
+                  <h5>BACKLOG</h5>
                 </div>
-                <div class="in-progress">
-                    <h5>IN PROGRESS</h5>
+
+                <div class="in-progress" id="InProgress">
+                  <h5>IN PROGRESS</h5>
                 </div>
-                <div class="testing">
-                    <h5>TESTING</h5>
+
+                <div class="testing" id="Testing">
+                  <h5>TESTING</h5>
                 </div>
-                <div class="finished">
-                    <h5>FINISHED</h5>
+
+                <div class="finished" id="Finished">
+                  <h5>FINISHED</h5>
                 </div>
               </div>
-            </div>
           </div>
       </div>
 
@@ -185,7 +191,6 @@
 
       <p class="copyright">ⓒ 2024 DevSphere, Inc</p>
     </footer>
-
     <script src="../../js/Project-Manager-JS/home.js"></script>
   </body>
 </html>
