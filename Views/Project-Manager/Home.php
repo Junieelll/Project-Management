@@ -23,7 +23,9 @@ if (!isset($_SESSION['user_id'])) {
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../../js/Project-Manager-JS/drag.js" defer></script>
+    <script type="text/javascript" src="../../js/Project-Manager-JS/ganttChart.js"></script>
 </head>
 
 <body>
@@ -113,7 +115,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="toolbar">
-            <button class="add-Task-btn">Add Task</button>
+            <button class="add-Task-btn" onclick="openaddtaskModal()">Add Task</button>
               <div class="search-input">
                   <input type="text" name="" id="" placeholder="Search" />
                   <i class="fa-solid fa-magnifying-glass search2"></i>
@@ -174,7 +176,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>
-      <p>This is the progress tracking section.</p>
+      <div class="ganttchart" id="timeline" style="width: 900px; height: 500px;"></div>
     </div>
 
     <div id="postAnnouncementModal" class="modal">
@@ -216,7 +218,7 @@ if (!isset($_SESSION['user_id'])) {
           </div>
         </form>
       </div>
-    </div>
+    </div>+
 
     <div id="imageModal" class="imageModal">
       <span id="closeModal" class="close">&times;</span>
@@ -261,6 +263,8 @@ if (!isset($_SESSION['user_id'])) {
     <p class="copyright">ⓒ 2024 DevSphere, Inc</p>
   </footer>
 
+  
+ 
   <script src="../../js/Project-Manager-JS/home.js"></script>
 </body>
 

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Object to track status changes
     const statusChanges = {};
 
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectId = urlParams.get("project_id");
 
     // Fetch tasks from the server
-    fetch(`../../controller/fetch_task.php?project_id=${projectId}`)
+    fetch(`Project-Management/controller/fetch_task.php?project_id=${projectId}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -226,3 +226,158 @@ function bulkUpdateTaskStatus(tasks) {
     })
     .catch(error => console.error('Error updating task statuses:', error));
 }
+// Show the modal and overlay
+// Function to open the modal
+
+function openaddtaskModal() {
+    document.querySelector('.modal-add').classList.add('show');
+    document.querySelector('.modal-overlay').classList.add('show');
+}
+
+// Function to close the modal
+function closeaddtaskModal() {
+    document.querySelector('.modal-add').classList.remove('show');
+    document.querySelector('.modal-overlay').classList.remove('show');
+}
+
+// Close the modal when clicking outside the modal content
+document.querySelector('.modal-overlay').addEventListener('click', function (event) {
+    // Only close the modal if the clicked area is the overlay (not the modal content)
+    if (event.target === this) {
+        closeaddtaskModal();
+    }
+});
+
+const searchInput = document.getElementById('memberSearch');
+const searchResult = document.querySelector('.search-result');
+const membersDiv = document.getElementById('projMember');
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get("project_id");
+
+searchInput.addEventListener('input', function () {
+    const searchValue = searchInput.value.trim();
+
+    // Hide results if the input is too short
+    if (searchValue.length < 3) {
+        searchResult.style.display = 'none';
+        return;
+    }
+
+    // Send the search query via POST method
+    fetch('/Project-Management/controller/fetch_projectmembers.php', {
+        method: 'POST',  // Use POST to send the data in the body
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            project_id: projectId,
+            search: searchValue,
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const members = data.members;
+            searchResult.innerHTML = ''; 
+            searchResult.style.display = 'flex';
+
+            if (members.length > 0) {
+                members.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.classList.add('user');
+                    userDiv.dataset.userId = user.user_id;
+
+                    userDiv.innerHTML = `
+                        <p>${user.email}</p>
+                        <button class="add-btn" type="button">Add</button>
+                    `;
+
+                    // Event listener to add the user to the selected members
+                    userDiv.querySelector('.add-btn').addEventListener('click', function () {
+                        if (!membersDiv.querySelector(`[data-user-id="${user.user_id}"]`)) {
+                            const selectedDiv = document.createElement('div');
+                            selectedDiv.classList.add('user');
+                            selectedDiv.dataset.userId = user.user_id;
+                            selectedDiv.innerHTML = `
+                                <p>${user.email}</p>
+                                <button class="remove-btn"><i class="fa-light fa-circle-xmark"></i></button>
+                            `;
+
+                            // Event listener to remove the user from the selected members
+                            selectedDiv.querySelector('.remove-btn').addEventListener('click', function () {
+                                selectedDiv.remove(); 
+                            });
+
+                            membersDiv.appendChild(selectedDiv);
+                        }
+
+                        // Remove the user from the search results after adding
+                        userDiv.remove();
+                    });
+
+                    searchResult.appendChild(userDiv);
+                });
+            } else {
+                searchResult.innerHTML = '<p>No users found.</p>';
+            }
+        } else {
+            console.error('Failed to fetch project members:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+document.getElementById('createTaskBtnAdd').addEventListener('click', function () {
+    // Get values from the form
+    const taskTitle = document.getElementById('task-title-add').value.trim();
+    const note = document.getElementById('note-add').value.trim();
+    const dueDate = document.getElementById('due-date-add').value.trim();
+    const priority = document.getElementById('priority-add').value;
+    const group = document.getElementById('group-add').value;
+    const assignedUser = document.getElementById('memberSearch').value;
+    
+    //Array.from(document.getElementById('projMember').children).map(user => user.dataset.userId);
+    
+    // Check if required fields are filled
+    if (!taskTitle || !priority || !group) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Prepare the data to be sent
+    const taskData = {
+        task_title: taskTitle,
+        note: note,
+        due_date: dueDate,
+        priority: priority,
+        task_group: group,
+        status: 'Backlog',  // Set status to "New" by default, or modify based on your needs
+        assigned_user: assignedUser.join(','),  // Join user IDs for multiple users
+        project_id: projectId, // Replace with dynamic project ID
+        file: null,  // Add file if needed
+    };
+
+    // Send the data via POST to the PHP backend
+    fetch('/Project-Management/controller/add_task.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Task added successfully!');
+            closeaddtaskModal();  // Close the modal after successful submission
+        } else {
+            alert('Failed to add task: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error occurred while adding the task.');
+    });
+});

@@ -45,10 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 function formatDate($date) {
-    // Create a DateTime object from the string
+    // Format the date as Y-m-d H:i:s (which is standard and parsable by JavaScript)
     $dt = new DateTime($date);
-    
-    // Format it as 'Month Day, Year | Hour:Minute AM/PM'
-    return $dt->format('F j, Y | g:i A');
+    return $dt->format('Y-m-d H:i:s'); // Format to something like '2024-11-23 06:49:00'
 }
-?>
