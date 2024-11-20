@@ -815,7 +815,7 @@ button:focus {
     opacity: 0.9;
 }
 
-.post-announcement{
+.post-announcement, .update-announcement{
     border-color: #3BB800 !important;
     background-color: #3BB800;
     color: #fff;
@@ -847,13 +847,17 @@ button:focus {
     color: #54C6FF;
 }
 
-#filePreview{
+#filePreview, #editFilePreview{
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 7px;
     height: 170px;
     overflow-y: auto;
+}
+
+#editFilePreview{
+    height: 100%;
 }
 
 .icon {
@@ -916,6 +920,15 @@ button:focus {
     border-radius: 20px;
     background-color: #171d35;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.announcement-body .card:hover{
+    transform: scale(1.01);
+    transition: all ease 0.3s;
 }
 
 .option-btn{
@@ -934,7 +947,7 @@ button:focus {
 .option-container{
     display: none;
     position: absolute;
-    right: 35px;
+    right: 45px;
     top: 30px;
     background-color: #fff;
     flex-direction: column;
@@ -1000,7 +1013,6 @@ button:focus {
 .image-container {
     display: flex;
     gap: 10px;
-    padding: 10px 0;
     cursor: pointer;
 }
 
@@ -1124,6 +1136,50 @@ button:focus {
 .cancel-btn:hover {
     background-color: #e8e8e8;
 }
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.title h5{
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.title p{
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.name small{
+    font-size: 11px;
+}
+
+.files-container {
+    width: 100%;
+    background-color: #171D35;
+    border-radius: 25px;
+    max-width: 300px;
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+}
+
 
 /*----------------------------------- FOOTER ------------------------------*/
 

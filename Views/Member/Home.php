@@ -16,16 +16,13 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
-  <link rel="stylesheet" href="../../styles/Project-Manager-Styles/home.css" />
+  <link rel="stylesheet" href="../../styles/Member-Styles/home.css" />
   <link
     rel="stylesheet"
     href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css" />
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="../../js/Project-Manager-JS/drag.js" defer></script>
-    <script type="text/javascript" src="../../js/Project-Manager-JS/ganttChart.js"></script>
 </head>
 
 <body>
@@ -91,11 +88,10 @@ if (!isset($_SESSION['user_id'])) {
       <div class="container">
         <div class="header">
           <h2>Announcement Board</h2>
-          <button class="post-btn">Post Announcement</button>
         </div>
 
         <div class="announcement-body">
-
+      
         </div>
       </div>
     </div>
@@ -115,31 +111,26 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="toolbar">
-            <button class="add-Task-btn" onclick="openaddtaskModal()">Add Task</button>
-              <div class="search-input">
-                  <input type="text" name="" id="" placeholder="Search" />
-                  <i class="fa-solid fa-magnifying-glass search2"></i>
-              </div>
-              <div class="dropdown">
-                  <button class="dropdown-btn all-task">
-                    All Task
-                    <span><i class="fa-solid fa-chevron-down"></i></span>
-                  </button>
-                  <div class="dropdown-content task-status">
-                    <button>BackLogs</button>
-                    <button>In Progress</button>
-                    <button>Testing</button>
-                    <button>Completed</button>
-                  </div>
-                </div>
-                <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
-                <button id="confirm-bulk-status-change">Confirm Kanban Changes</button>
+          <button class="add-Task-btn">Add Task</button>
+          <div class="search-input">
+            <input type="text" name="" id="" placeholder="Search" />
+            <i class="fa-solid fa-magnifying-glass search2"></i>
+          </div>
+          <div class="dropdown">
+            <button class="dropdown-btn all-task">
+              All Task
+              <span><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="dropdown-content task-status">
+              <button>BackLogs</button>
+              <button>In Progress</button>
+              <button>Testing</button>
+              <button>Completed</button>
             </div>
           </div>
-
-          <!--view task-->
-          <?php include './Modal.php'; ?>
-          <!--end of view task-->
+          <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
+        </div>
+      </div>
 
       <div class="project-content">
         <div class="members">
@@ -153,104 +144,28 @@ if (!isset($_SESSION['user_id'])) {
             <button class="add-member-btn"><i class="fa-solid fa-plus"></i></button>
           </div>
         </div>
-              
-              <div class="cards-container">
-                <div class="backlogs" id="Backlog">
-                  <h5>BACKLOG</h5>
-                </div>
 
-                <div class="in-progress" id="InProgress">
-                  <h5>IN PROGRESS</h5>
-                </div>
-
-                <div class="testing" id="Testing">
-                  <h5>TESTING</h5>
-                </div>
-
-                <div class="finished" id="Finished">
-                  <h5>FINISHED</h5>
-                </div>
-              </div>
+        <div class="cards-container">
+          <div class="backlogs">
+            <h5>BACKLOG</h5>
           </div>
+          <div class="in-progress">
+            <h5>IN PROGRESS</h5>
+          </div>
+          <div class="testing">
+            <h5>TESTING</h5>
+          </div>
+          <div class="finished">
+            <h5>FINISHED</h5>
+          </div>
+        </div>
       </div>
+    </div>
+    </div>
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>
-      <div class="ganttchart" id="timeline" style="width: 900px; height: 500px;"></div>
-    </div>
-
-    <div id="postAnnouncementModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Post Announcement</h3>
-        </div>
-        <form id="postAnnouncementForm">
-          <div class="modal-body">
-            <div class="input">
-              <label for="project-title">Title</label>
-              <input type="text" placeholder="Announcement Title" id="project-title" autocomplete="off">
-            </div>
-            <div class="half-width">
-              <div class="add-members">
-                <h5>Upload file</h5>
-                <div class="file-input">
-                  <label for="upload_file">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <p>Upload a file</p>
-                  </label>
-                  <input type="file" id="upload_file" multiple style="display: none;" accept="image/*">
-                </div>
-                <div class="file" id="filePreview">
-
-                </div>
-              </div>
-              <div class="description">
-                <label for="message">Critical Message</label>
-                <textarea id="message" name="message" placeholder="Enter Message Here..."></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="action-btn">
-              <button type="button" class="close-btn">Cancel</button>
-              <button type="submit" class="post-announcement">Post Announcement</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>+
-
-    <div id="editAnnouncementModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Edit Announcement</h3>
-        </div>
-        <form id="editAnnouncementForm">
-          <div class="modal-body">
-            <div class="input">
-              <label for="project-title">Title</label>
-              <input type="text" placeholder="Announcement Title" id="edit-project-title" autocomplete="off">
-            </div>
-            <div class="half-width">
-              <div class="files-container">
-                <div class="file" id="editFilePreview">
-
-                </div>
-              </div>
-              <div class="description">
-                <label for="edit-message">Critical Message</label>
-                <textarea id="edit-message" name="edit-message" placeholder="Enter Message Here..."></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="action-btn">
-              <button type="button" class="cancel-btn">Cancel</button>
-              <button type="submit" class="update-announcement">Update Announcement</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <p>This is the progress tracking section.</p>
     </div>
 
     <div id="imageModal" class="imageModal">
@@ -296,9 +211,7 @@ if (!isset($_SESSION['user_id'])) {
     <p class="copyright">ⓒ 2024 DevSphere, Inc</p>
   </footer>
 
-  
- 
-  <script src="../../js/Project-Manager-JS/home.js"></script>
+  <script src="../../js/Member-Js/home.js"></script>
 </body>
 
 </html>

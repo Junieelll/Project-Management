@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!projectId) {
     console.error("Project ID not found in URL.");
     showToast("Project ID is missing.");
+    window.location.href = '../../views/Home.php';
   }
 
   async function fetchAnnouncementsForProject(projectId) {
@@ -197,6 +198,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function calculateTimeAgo(date) {
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval >= 1) return interval + ' year' + (interval === 1 ? '' : 's') + ' ago';
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) return interval + ' month' + (interval === 1 ? '' : 's') + ' ago';
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) return interval + ' day' + (interval === 1 ? '' : 's') + ' ago';
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) return interval + ' hour' + (interval === 1 ? '' : 's') + ' ago';
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) return interval + ' minute' + (interval === 1 ? '' : 's') + ' ago';
+    return Math.floor(seconds) + ' second' + (seconds === 1 ? '' : 's') + ' ago';
+}
+
   function renderAnnouncements(announcements) {
     const announcementBody = document.querySelector(".announcement-body");
     announcementBody.innerHTML = "";
@@ -205,23 +223,47 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.classList.add("card");
 
+      card.dataset.announcementId = announcement.announcement_id;
+      const postedTime = calculateTimeAgo(new Date(announcement.upload_date));
+
       const cardContent = `
-          <div class="card-content">
-              <div class="title">
-                  <h5>${announcement.title}</h5>
-                  <p>${announcement.critical_message}</p>
+        <div class="card-header">
+              <div class="user-info">
+                <img src="${announcement.profile_picture}" alt="${announcement.name}'s profile picture">
+                <div class="name">
+                  <h5>${announcement.name}</h5>
+                  <small>${postedTime}</small>
+                </div>
               </div>
               <button class="option-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
               <div class="option-container">
-                  <button><i class="fa-light fa-pen-to-square"></i> Edit</button>
+                  <button class="edit-btn"><i class="fa-light fa-pen-to-square"></i> Edit</button>
                   <button class="delete-btn"><i class="fa-light fa-trash"></i> Delete</button>
+              </div>
+        </div>
+          <div class="card-body">
+              <div class="title">
+                  <h5>${announcement.title}</h5>
+                  <p>${announcement.critical_message}</p>
               </div>
           </div>
       `;
       card.innerHTML = cardContent;
 
+    card.addEventListener("click", function (event) {
+      if (!event.target.closest(".option-btn") && !event.target.closest(".option-container")) {
+        const announcementId = card.dataset.announcementId;
+        window.location.href = `Announcement-Details.php?announcement_id=${announcementId}`;
+      }
+    });
+
+    // event listener ng delete delete
       const deleteBtn = card.querySelector(".delete-btn");
       deleteBtn.addEventListener("click", () => showDeleteModal(announcement.announcement_id));
+
+      // event listener ng edit button
+      const editBtn = card.querySelector(".edit-btn");
+      editBtn.addEventListener("click", () => openEditModal(announcement));
 
       const imageContainer = document.createElement("div");
       imageContainer.classList.add("image-container");
@@ -231,9 +273,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const img = document.createElement("img");
         img.src = file.file_path;
         img.alt = file.file_name;
-        img.addEventListener("click", () =>
-          openImageModal(file.file_path, files)
-        );
+        img.addEventListener("click", () =>{
+          event.stopPropagation();
+         openImageModal(file.file_path, files) 
+        });
         imageContainer.appendChild(img);
       });
 
@@ -246,9 +289,10 @@ document.addEventListener("DOMContentLoaded", () => {
         overlayDiv.style.backgroundImage = `url('${lastFile.file_path}')`;
         overlayDiv.innerHTML = `<span>+${remainingCount}</span>`;
 
-        overlayDiv.addEventListener("click", () =>
+        overlayDiv.addEventListener("click", (event) =>{
+          event.stopPropagation();
           openImageModal(lastFile.file_path, files)
-        );
+        });
         imageContainer.appendChild(overlayDiv);
       }
 
@@ -257,8 +301,119 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function openEditModal(announcement) {
+    const editModal = document.getElementById("editAnnouncementModal");
+    const titleInput = document.getElementById("edit-project-title");
+    const messageTextarea = document.getElementById("edit-message");
+    const filePreview = document.getElementById("editFilePreview");
+  
+    titleInput.value = announcement.title;
+    messageTextarea.value = announcement.critical_message;
+  
+    let hiddenIdField = document.getElementById("edit-announcement-id");
+    if (!hiddenIdField) {
+      hiddenIdField = document.createElement("input");
+      hiddenIdField.type = "hidden";
+      hiddenIdField.id = "edit-announcement-id";
+      hiddenIdField.name = "announcement_id";
+      document.getElementById("editAnnouncementForm").appendChild(hiddenIdField);
+    }
+    hiddenIdField.value = announcement.announcement_id;
+  
+    filePreview.innerHTML = "";
+  
+    if (announcement.files) {
+      announcement.files.forEach((file) => {
+        const previewItem = document.createElement("div");
+        previewItem.classList.add("preview-item");
+        previewItem.innerHTML = `
+          <div class="icon">
+                  <i class="fa-solid fa-image"></i>
+              </div>
+              <p>${file.file_name}</p>
+              <button type="button" class="remove-btn">
+                  <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+        `;
+
+        const removeBtn = previewItem.querySelector(".remove-btn");
+            removeBtn.addEventListener("click", () => removeFile(file.file_id, previewItem));
+
+
+        filePreview.appendChild(previewItem);
+      });
+    }
+  
+    editModal.classList.add("show");
+  }
+
+  const editModal = document.getElementById("editAnnouncementModal");
+  const cancelBtn = editModal.querySelector(".cancel-btn");
+
+
+  cancelBtn.addEventListener("click", function () {
+    editModal.classList.remove("show");
+  });
+
+  function removeFile(fileId, previewItem) {
+    if (confirm("Are you sure you want to remove this file?")) {
+        fetch(`../../controller/delete-file.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ file_id: fileId }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    previewItem.remove();
+                } else {
+                    alert("Failed to delete the file. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("An error occurred while deleting the file.");
+            });
+    }
+}
+
+  document.getElementById("editAnnouncementForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+  
+    const title = document.getElementById("edit-project-title").value.trim();
+    const message = document.getElementById("edit-message").value.trim();
+    const announcementId = document.getElementById("edit-announcement-id").value;
+  
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("message", message);
+    formData.append("announcement_id", announcementId);
+  
+    try {
+      const response = await fetch("../../controller/update_announcement.php", {
+        method: "POST",
+        body: formData,
+      });
+  
+      const result = await response.json();
+  
+      if (result.success) {
+        showToast("Announcement updated successfully!", "success");
+        document.getElementById("editAnnouncementModal").classList.remove("show");
+        fetchAnnouncementsForProject(projectId); 
+      } else {
+        showToast(result.message, "error");
+      }
+    } catch (error) {
+      console.error("Error updating announcement:", error);
+    }
+  });
+  
+
   function showDeleteModal(announcementId) {
-    console.log("showDeleteModal called with ID:", announcementId); // Debug log
+    console.log("showDeleteModal called with ID:", announcementId); 
     currentAnnouncementId = announcementId;
     const modal = document.getElementById("deleteModal");
     modal.classList.add('show');
@@ -311,8 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   
-  
-
   function openImageModal(imagePath, images) {
     currentImages = images;
     currentImageIndex = images.findIndex(
