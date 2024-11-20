@@ -1,3 +1,18 @@
+:root {
+    --bar: #3D437D;
+    --bg: #C2C5D2;
+    --hover: #54C6FF;
+    --container: #171D35;
+    --KB_bl: #92211F;
+    --KB_pro:#92641F;
+    --KB_test:#1F4692;
+    --KB_fin:#59921F;
+    --green:#3BB800;
+    --red:#F30000;
+    --yellow:#F3CC00;
+    --container2:#1E2646;
+    --font-family: "Plus Jakarta Sans", sans-serif;
+}
 *{
     box-sizing: border-box;
     margin: 0;
@@ -294,11 +309,13 @@ main{
     display: grid;
     place-items: center;
 }
+/*--task css--*/
 
 .cards-container{
     display: flex;
     width: 100%;
     padding: 10px;
+
 }
 
 .cards-container > *{
@@ -307,26 +324,272 @@ main{
 
 .cards-container h5{
     padding: 10px;
-    width: 200px;
+    width: 270px;
     border-radius: 10px;
 }
 
-.backlogs h5{
+.backlogs h5 {
+
     background-color: #92211F;
 }
 
-.in-progress h5{
+.in-progress h5 {
     background-color: #92641F;
 }
 
-.testing h5{
+.testing h5 {
     background-color: #1F4692;
 }
 
-.finished h5{
+.finished h5 {
     background-color: #59921F;
 }
 
+.Backlog{
+    background-color:var(--KB_bl);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.InProgress{
+    background-color:var(--KB_pro);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Testing{
+    background-color:var(--KB_test);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Finished{
+    background-color:var(--KB_fin);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-card {
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 270px;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; 
+}
+
+.task-card h3 {
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.task-card section {
+    margin-bottom: 0.5rem;
+    margin-top: 15px;
+    margin-left: 15px;
+    font-size: 14px;
+}
+
+.task-card p {
+    display: flex;
+    align-items: center;
+    margin: 10px 5px 0 45px;
+    font-size: 12px;
+}
+.delete1{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    margin: 0 0 0 210px;
+    background: none;
+    border: none;
+
+}
+.delete1 img{
+    height: 20px;
+    width: 20px;
+    transition: all 0.3s ease; 
+}
+.delete1:hover img {
+    transform: scale(1.2); 
+    content: url('../../images/trash_open.png');
+  }
+
+.taskcard img {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    margin: 5px 0 0 15px;
+    background-color: black;
+    border-radius: 50%;
+}
+.priority {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: var(--container);
+    color: var(--green);
+    text-align: center;
+}
+.High {
+    color: var(--red);
+}
+
+.Medium {
+    color: var(--yellow);
+}
+
+.Low {
+    color: var(--green);
+}
+
+.is-dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-btn {
+    display: none; /* Hides the confirm button */
+}
+
+/* Style the checkbox */
+.task-select {
+    position:absolute;
+    margin-left: 10px; /* Optional: space between the checkbox and the text */
+    cursor: pointer; /* Optional: shows pointer when hovering over the checkbox */
+}
+
+/* Overlay styling */
+.task-overlay-admin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    display: none; /* Initially hidden */
+}
+
+/* Modal container styling */
+.task-modal-admin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: var(--container2); 
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    color: var(--bg);
+    display: none; /* Initially hidden */
+    font-family: var(--font-family);
+}
+
+
+.task-modal-content-admin {
+    padding: 20px;
+    position: relative;
+}
+
+
+.close-btn-admin img {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+
+.userimage img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 10px;
+}
+
+
+.membername-admin {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.devspeherename-admin {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: var(--bg); 
+}
+
+
+.duedate-admin {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--bg); 
+    margin-bottom: 20px;
+}
+
+.duedate-admin label img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+#dateDisplayAdmin {
+    font-size: 14px;
+}
+
+.task-priority-admin {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.task-priority-indicator-admin {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-left: 4px;
+}
+
+.task-priority-indicator-admin {
+    background-color: var(--red);
+    color: #fff;
+}
+
+.note-admin {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text-admin {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--bg); 
+    margin-bottom: 20px;
+}
+
+/* Edit button */
+.edit-btn-admin img {
+    display: block;
+    margin: 0 auto;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+/*--end task css--*/
 #announcement .container{
     width: 100%;
     max-width: 85%;
