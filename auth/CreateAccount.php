@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="../styles/create-acc.css" />
     <link
       rel="stylesheet"
       href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css"
@@ -64,13 +64,22 @@
 
     <main>
       <div class="wrapper">
-        <form action="">
-            <img src="" alt="" name="pfpUrl">
+        <form id="createAccForm">
+          <h3>Register</h3>
+          <p>You've successfully authenticated with Google. Please fill in your details below and click the Register button to finish logging in.</p>
+          <div class="name-input">
+          <i class="fa-light fa-user icon"></i>
             <label for="name">Name</label>
-            <input type="text" id="name">
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="email-input">
+          <i class="fa-light fa-envelope icon"></i>
             <label for="email">Email</label>
-            <input type="email" id="email">
-            <input type="submit">
+            <input type="email" id="email" name="email" required readonly>
+          </div>
+          <input type="hidden" id="userId" name="userId">
+          <input type="hidden" id="profilePicture" name="profilePicture">
+          <button type="submit" id="createBtn">Create Account</button>
         </form>
       </div>
     </main>
@@ -100,5 +109,53 @@
     </footer>
 
     <script src="../js/home.js"></script>
+    <script>
+        function getQueryParams() {
+            const params = {};
+            window.location.search
+                .substring(1)
+                .split("&")
+                .forEach((param) => {
+                    const [key, value] = param.split("=");
+                    params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+                });
+            return params;
+        }
+
+        const queryParams = getQueryParams();
+        document.getElementById("name").value = queryParams.name || "";
+        document.getElementById("email").value = queryParams.email || "";
+        document.getElementById("userId").value = queryParams.userId || "";
+        document.getElementById("profilePicture").value = queryParams.profilePicture || "";
+
+        document.getElementById("createAccForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const userId = document.getElementById("userId").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const profilePicture = document.getElementById("profilePicture").value;
+
+    fetch("../controller/create_user.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, name, email, profilePicture }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                window.location.href = "../Views/Home.php";
+            } else {
+                alert("Error creating account: " + data.message);
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+});
+
+    </script>
   </body>
 </html>

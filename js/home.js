@@ -142,7 +142,7 @@ function checkUserRole(projectId) {
                     window.location.href = `Project-Manager/Home.php?project_id=${projectId}`;
                 } else {
                     // kapag member
-                    window.location.href = `member/Home.php?project_id=${projectId}`;
+                    window.location.href = `Member/Home.php?project_id=${projectId}`;
                 }
             } else {
                 console.error('Failed to check user role:', data.message);

@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
-  <link rel="stylesheet" href="../../styles/Project-Manager-Styles/home.css" />
+  <link rel="stylesheet" href="../../styles/Member-Styles/home.css" />
   <link
     rel="stylesheet"
     href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css" />
@@ -88,11 +88,10 @@ if (!isset($_SESSION['user_id'])) {
       <div class="container">
         <div class="header">
           <h2>Announcement Board</h2>
-          <button class="post-btn">Post Announcement</button>
         </div>
 
         <div class="announcement-body">
-
+      
         </div>
       </div>
     </div>
@@ -169,80 +168,6 @@ if (!isset($_SESSION['user_id'])) {
       <p>This is the progress tracking section.</p>
     </div>
 
-    <div id="postAnnouncementModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Post Announcement</h3>
-        </div>
-        <form id="postAnnouncementForm">
-          <div class="modal-body">
-            <div class="input">
-              <label for="project-title">Title</label>
-              <input type="text" placeholder="Announcement Title" id="project-title" autocomplete="off">
-            </div>
-            <div class="half-width">
-              <div class="add-members">
-                <h5>Upload file</h5>
-                <div class="file-input">
-                  <label for="upload_file">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <p>Upload a file</p>
-                  </label>
-                  <input type="file" id="upload_file" multiple style="display: none;" accept="image/*">
-                </div>
-                <div class="file" id="filePreview">
-
-                </div>
-              </div>
-              <div class="description">
-                <label for="message">Critical Message</label>
-                <textarea id="message" name="message" placeholder="Enter Message Here..."></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="action-btn">
-              <button type="button" class="close-btn">Cancel</button>
-              <button type="submit" class="post-announcement">Post Announcement</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="editAnnouncementModal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3>Edit Announcement</h3>
-        </div>
-        <form id="editAnnouncementForm">
-          <div class="modal-body">
-            <div class="input">
-              <label for="project-title">Title</label>
-              <input type="text" placeholder="Announcement Title" id="edit-project-title" autocomplete="off">
-            </div>
-            <div class="half-width">
-              <div class="files-container">
-                <div class="file" id="editFilePreview">
-
-                </div>
-              </div>
-              <div class="description">
-                <label for="edit-message">Critical Message</label>
-                <textarea id="edit-message" name="edit-message" placeholder="Enter Message Here..."></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="action-btn">
-              <button type="button" class="cancel-btn">Cancel</button>
-              <button type="submit" class="update-announcement">Update Announcement</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
     <div id="imageModal" class="imageModal">
       <span id="closeModal" class="close">&times;</span>
       <button class="nav left" id="prevImage" style="display: none;"><i class="fa-regular fa-chevron-left"></i></button>
@@ -286,7 +211,7 @@ if (!isset($_SESSION['user_id'])) {
     <p class="copyright">ⓒ 2024 DevSphere, Inc</p>
   </footer>
 
-  <script src="../../js/Project-Manager-JS/home.js"></script>
+  <script src="../../js/Member-Js/home.js"></script>
 </body>
 
 </html>

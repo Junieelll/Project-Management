@@ -420,7 +420,7 @@
         <a href="">Learning Path</a>
     </div>
 
-    <a class="logout-btn" href="../auth/logout.php"><i class="fa-light fa-right-from-bracket"></i> Logout</a>
+    <a class="logout-btn" href="/PROJECT-MANAGEMENT/auth/logout.php"><i class="fa-light fa-right-from-bracket"></i> Logout</a>
 </aside>
 
 <div id="addProjectModal" class="modal">
@@ -556,7 +556,8 @@ const membersDiv = document.getElementById('projMember');
 searchInput.addEventListener('input', function () {
     const searchValue = searchInput.value.trim();
 
-    if (searchValue.length < 3) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(searchValue)) {
         searchResult.style.display = 'none';
         return;
     }
@@ -570,7 +571,7 @@ searchInput.addEventListener('input', function () {
     })
         .then(response => response.json())
         .then(users => {
-            searchResult.innerHTML = ''; 
+            searchResult.innerHTML = '';
             searchResult.style.display = 'flex';
 
             if (users.length > 0) {
@@ -585,7 +586,7 @@ searchInput.addEventListener('input', function () {
                     `;
 
                     userDiv.querySelector('.add-btn').addEventListener('click', function () {
-                        if (!membersDiv.querySelector(`[data-user-id="${users.user_id}"]`)) {
+                        if (!membersDiv.querySelector(`[data-user-id="${user.user_id}"]`)) {
                             const selectedDiv = document.createElement('div');
                             selectedDiv.classList.add('user');
                             selectedDiv.dataset.userId = user.user_id;
@@ -595,7 +596,7 @@ searchInput.addEventListener('input', function () {
                             `;
 
                             selectedDiv.querySelector('.remove-btn').addEventListener('click', function () {
-                                selectedDiv.remove(); 
+                                selectedDiv.remove();
                             });
 
                             membersDiv.appendChild(selectedDiv);
@@ -614,6 +615,7 @@ searchInput.addEventListener('input', function () {
             console.error('Error:', error);
         });
 });
+
 
 function showToast(message, type = 'info') {
     const toast = document.getElementById('toast');

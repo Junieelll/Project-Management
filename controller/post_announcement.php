@@ -1,5 +1,10 @@
 <?php
+session_start();
 require_once '../config/conn.php';
+
+$userid =  $_SESSION['user_id'];
+
+date_default_timezone_set('Asia/Manila');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';
@@ -15,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->begin_transaction();
 
     try {
-        $stmt = $conn->prepare("INSERT INTO announcement (title, critical_message, upload_date, project_id) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('sssi', $title, $message, $uploadDate, $projectId);
+        $stmt = $conn->prepare("INSERT INTO announcement (title, critical_message, upload_date, project_id, user_id) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param('sssis', $title, $message, $uploadDate, $projectId, $userid);
         $stmt->execute();
         $announcementId = $stmt->insert_id;
 

@@ -1,0 +1,251 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+.logo img{
+    width: 70px;
+    height: auto;
+}
+
+.logo{
+   display: flex;
+   align-items: center;
+   gap: 50px;
+}
+
+nav{
+    background-color: #3d437d;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.logo .sidebar-btn{
+    all: unset;
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 50px;
+}
+
+.nav-links a{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links a:hover{
+    color: #54C6FF;
+    transition: all ease 0.3s;
+}
+
+.nav-links img{
+    width: 20px;
+}
+
+.search-input{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-input input{
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 100%;
+    font-size: 13px;
+}
+
+.search-input .search1{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+}
+
+.user-links{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.user-links img{
+    width: 23px;
+}
+
+main{
+    padding: 50px;
+    max-width: 90%;
+    width: 100%;
+    margin: auto;
+    min-height: 75vh;
+}
+
+#createAccForm{
+    max-width: 600px;
+    width: 100%;
+    background-color: #171D35;
+    border-radius: 20px;
+    padding: 25px;
+    gap: 10px;
+}
+
+#createAccForm h3{
+    color: #fff;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#createAccForm p{
+    color: #fff;
+    font-size: 13px;
+}
+
+#createAccForm label{
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #fff;
+    padding-left: 5px;
+}
+
+#createAccForm, .name-input, .email-input{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#createAccForm input{
+    padding: 10px;
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+    padding-left: 40px;
+    outline: none;
+    background-color: #3D437D;
+    color: #fff;
+}
+
+#createAccForm .icon{
+    position: absolute;
+    top: 53%;
+    transform: translateX(-50%);
+    left: 20px;
+    color: #ffffff;
+}
+
+#createBtn{
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all ease 0.3s;
+    background-color: #fff;
+}
+
+#createBtn:hover{
+    background-color: #e8e8e8;
+}
+
+
+
+/*----------------------------------- FOOTER ------------------------------*/
+
+footer {
+    background: linear-gradient(0deg, #3D437D 0%, #171D35 100%);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+.footer-links a{
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.footer-links a:hover{
+    color: #54C6FF;
+    transition: all ease 0.3s;
+}
+
+.socials{
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.socials a {
+    text-decoration: none;
+    margin: 0px 20px;
+    background-color: #fff;
+    padding: 7px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #171D35;
+}
+
+.socials a i{
+    font-size: 20px;
+}
+
+.socials a:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.copyright {
+    font-size: 10px; 
+    color: white;
+    margin-top: 10px;
+    font-weight: 200;
+    outline: none;
+    user-select: none;
+}
+
+footer .line{
+    background-color: #c2c5d2;
+    width: 90%;
+    margin: 20px auto;
+}

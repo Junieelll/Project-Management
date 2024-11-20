@@ -23,32 +23,36 @@ provider.setCustomParameters({
 });
 
 googleLogin.addEventListener("click", function () {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        const userId = user.uid; 
-  
-        fetch("../auth/verify_user.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId: userId }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.exists) {
-              window.location.href = "../Views/Home.php";
-            } else {
-              window.location.href = "../Views/CreateAccount.php";
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      const userId = user.uid;
+      const name = user.displayName;
+      const email = user.email;
+      const profilePicture = user.photoURL;
+
+      fetch("../auth/verify_user.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: userId }),
       })
-      .catch((error) => {
-        console.error("Authentication error:", error);
-      });
-  });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.exists) {
+            window.location.href = "../Views/Home.php";
+          } else {
+            window.location.href = `CreateAccount.php?userId=${encodeURIComponent(userId)}&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&profilePicture=${encodeURIComponent(profilePicture)}`;
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("Authentication error:", error);
+    });
+});
+
   
