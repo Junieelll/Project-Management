@@ -4,7 +4,7 @@ include '../config/conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $userId = $_SESSION['user_id']; 
-
+    
     // Fetch projects where the user is either the project manager or a member
     $query = "
         SELECT DISTINCT p.project_id, p.project_name, p.description, p.created_date, 
@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             WHEN p.project_manager = ? THEN 'Manager'
                             ELSE 'Member'
                         END AS user_role
-        FROM projects p
-        LEFT JOIN project_members pm ON p.project_id = pm.project_id
+        FROM project p
+        LEFT JOIN projectmembers pm ON p.project_id = pm.project_id
         WHERE p.project_manager = ? OR pm.user_id = ?
     ";
     $stmt = $conn->prepare($query);
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $memberQuery = "
                 SELECT u.user_id, u.name, u.profile_picture 
-                FROM project_members pm
+                FROM projectmembers pm
                 JOIN users u ON pm.user_id = u.user_id
                 WHERE pm.project_id = ?
             ";

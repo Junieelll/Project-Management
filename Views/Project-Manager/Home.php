@@ -23,6 +23,7 @@ if (!isset($_SESSION['user_id'])) {
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+    <script src="../../js/Project-Manager-JS/drag.js" defer></script>
 </head>
 
 <body>
@@ -112,26 +113,31 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="toolbar">
-          <button class="add-Task-btn">Add Task</button>
-          <div class="search-input">
-            <input type="text" name="" id="" placeholder="Search" />
-            <i class="fa-solid fa-magnifying-glass search2"></i>
-          </div>
-          <div class="dropdown">
-            <button class="dropdown-btn all-task">
-              All Task
-              <span><i class="fa-solid fa-chevron-down"></i></span>
-            </button>
-            <div class="dropdown-content task-status">
-              <button>BackLogs</button>
-              <button>In Progress</button>
-              <button>Testing</button>
-              <button>Completed</button>
+            <button class="add-Task-btn">Add Task</button>
+              <div class="search-input">
+                  <input type="text" name="" id="" placeholder="Search" />
+                  <i class="fa-solid fa-magnifying-glass search2"></i>
+              </div>
+              <div class="dropdown">
+                  <button class="dropdown-btn all-task">
+                    All Task
+                    <span><i class="fa-solid fa-chevron-down"></i></span>
+                  </button>
+                  <div class="dropdown-content task-status">
+                    <button>BackLogs</button>
+                    <button>In Progress</button>
+                    <button>Testing</button>
+                    <button>Completed</button>
+                  </div>
+                </div>
+                <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
+                <button id="confirm-bulk-status-change">Confirm Kanban Changes</button>
             </div>
           </div>
-          <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
-        </div>
-      </div>
+
+          <!--view task-->
+          <?php include './Modal.php'; ?>
+          <!--end of view task-->
 
       <div class="project-content">
         <div class="members">
@@ -145,24 +151,26 @@ if (!isset($_SESSION['user_id'])) {
             <button class="add-member-btn"><i class="fa-solid fa-plus"></i></button>
           </div>
         </div>
+              
+              <div class="cards-container">
+                <div class="backlogs" id="Backlog">
+                  <h5>BACKLOG</h5>
+                </div>
 
-        <div class="cards-container">
-          <div class="backlogs">
-            <h5>BACKLOG</h5>
+                <div class="in-progress" id="InProgress">
+                  <h5>IN PROGRESS</h5>
+                </div>
+
+                <div class="testing" id="Testing">
+                  <h5>TESTING</h5>
+                </div>
+
+                <div class="finished" id="Finished">
+                  <h5>FINISHED</h5>
+                </div>
+              </div>
           </div>
-          <div class="in-progress">
-            <h5>IN PROGRESS</h5>
-          </div>
-          <div class="testing">
-            <h5>TESTING</h5>
-          </div>
-          <div class="finished">
-            <h5>FINISHED</h5>
-          </div>
-        </div>
       </div>
-    </div>
-    </div>
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>

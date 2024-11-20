@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['project_id'])) {
     $projectId = $_GET['project_id'];
     $userId = $_SESSION['user_id']; 
 
-    $query = "SELECT project_manager FROM projects WHERE project_id = ?";
+    $query = "SELECT project_manager FROM project WHERE project_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $projectId);
 
