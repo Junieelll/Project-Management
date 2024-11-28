@@ -451,16 +451,106 @@ main{
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.confirm-btn {
-    display: none; /* Hides the confirm button */
-}
 
-/* Style the checkbox */
-.task-select {
-    position:absolute;
-    margin-left: 10px; /* Optional: space between the checkbox and the text */
-    cursor: pointer; /* Optional: shows pointer when hovering over the checkbox */
+.task-edit {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .task-edit h2 {
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .save-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #e53935;
+  }
+  
+/* Basic styling for modal */
+/* .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    z-index: 1080;
 }
+.modal-content {
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    background-color: #fff;
+    width: 50%;
+    border-radius: 5px;
+}
+.modal-header,
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.close-btn {
+    cursor: pointer;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: #333;
+}
+.modal-footer {
+    margin-top: 20px;
+} */
 
 /* Overlay styling */
 .task-overlay-admin {
@@ -470,7 +560,7 @@ main{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9998;
+    z-index: 1060;
     display: none; /* Initially hidden */
 }
 
@@ -484,7 +574,7 @@ main{
     background-color: var(--container2); 
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+    z-index: 1070;
     color: var(--bg);
     display: none; /* Initially hidden */
     font-family: var(--font-family);
@@ -512,6 +602,7 @@ main{
     width: 50px;
     height: 50px;
     margin: 0 auto 10px;
+    border-radius: 50%;
 }
 
 
@@ -580,200 +671,6 @@ main{
     color: var(--bg); 
     margin-bottom: 20px;
 }
-/* Modal hidden by default */
-.modal-add {
-    display: none;  /* Hidden initially */
-    background-color: #2C2F3A;
-    width: 60%;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: #fff;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;  /* Ensure modal appears on top */
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    display: none;  /* Hidden initially */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    z-index: 9998;  /* Overlay should be behind the modal */
-}
-
-/* Show the modal and overlay when active */
-.modal-add.show, .modal-overlay.show {
-    display: block;  /* Display the modal and overlay when active */
-}
-
-/* Title */
-.modal-add h1 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #E8F0F2;
-}
-
-/* Inputs and labels */
-.form-group-add {
-    margin-bottom: 20px;
-}
-
-.form-group-add label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: #E8F0F2;
-}
-
-.form-group-add input, 
-.form-group-add select, 
-.form-group-add textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #3A3F4D;
-    color: #fff;
-    font-size: 16px;
-}
-
-.form-group-add input:focus, 
-.form-group-add select:focus, 
-.form-group-add textarea:focus {
-    border-color: #64C5FF;
-}
-
-/* Add Members Section */
-.add-members {
-    display: flex;
-    flex-direction: column;
-}
-
-.add-members input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #3A3F4D;
-    color: #fff;
-    font-size: 16px;
-}
-
-.search-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.search-input input {
-    width: 80%;
-}
-
-.search-input i {
-    color: #B0B8C1;
-}
-
-.members {
-    max-height: 200px;
-    overflow-y: auto;
-    background-color: #3A3F4D;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.members div {
-    padding: 10px;
-    background-color: #4C5666;
-    margin: 5px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.members div span {
-    color: #B0B8C1;
-}
-
-.members div .remove-member {
-    color: #FF6C6C;
-    cursor: pointer;
-}
-
-/* Buttons */
-.btn-task-submit {
-    background-color: #64C5FF;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.btn-task-submit:hover {
-    background-color: #5395B1;
-}
-
-.btn-task-submit:active {
-    background-color: #477E94;
-}
-
-.cancel-btn {
-    background-color: #FF6C6C;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.cancel-btn:hover {
-    background-color: #E14C4C;
-}
-
-.cancel-btn:active {
-    background-color: #C13535;
-}
-
-/* Modal inputs and text area */
-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-/* Focus and hover effects */
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #64C5FF;
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Flexbox layout for form sections */
-.half-width {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-/* Spacing between sections */
-.form-group-add {
-    margin-bottom: 20px;
-}
-
 /* Edit button */
 .edit-btn-admin img {
     display: block;
@@ -783,12 +680,6 @@ button:focus {
     cursor: pointer;
 }
 /*--end task css--*/
-.ganttchart {
-    background-color: var(--container2);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid var(--bg);
-}
 #announcement .container{
     width: 100%;
     max-width: 85%;
@@ -1090,6 +981,10 @@ button:focus {
     z-index: 2; 
 }
 
+#deleteModal{
+
+}
+
 #deleteModal .modal-content{
     background-color: #171D35;
     max-width: 400px;
@@ -1119,7 +1014,7 @@ button:focus {
 }
 
 
-.confirm-btn {
+#confirmDelete {
     background-color: #d9534f;
     color: white;
 }

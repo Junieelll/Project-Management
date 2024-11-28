@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             WHEN p.project_manager = ? THEN 'Manager'
                             ELSE 'Member'
                         END AS user_role
-        FROM project p
-        LEFT JOIN projectmembers pm ON p.project_id = pm.project_id
+        FROM projects p
+        LEFT JOIN project_members pm ON p.project_id = pm.project_id
         WHERE p.project_manager = ? OR pm.user_id = ?
     ";
     $stmt = $conn->prepare($query);
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
             $memberQuery = "
                 SELECT u.user_id, u.name, u.profile_picture 
-                FROM projectmembers pm
+                FROM project_members pm
                 JOIN users u ON pm.user_id = u.user_id
                 WHERE pm.project_id = ?
             ";

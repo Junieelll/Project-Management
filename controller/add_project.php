@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $createdDate = date('Y-m-d H:i:s');
     $members = $input['members']; 
 
-    $query = "INSERT INTO project (project_manager, project_name, description, created_date, due_date, status) 
+    $query = "INSERT INTO projects (project_manager, project_name, description, created_date, due_date, status) 
               VALUES (?, ?, ?, ?, ?, 'In-Progress')";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sssss", $projectManager, $projectName, $description, $createdDate, $dueDate);

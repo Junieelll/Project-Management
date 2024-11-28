@@ -44,8 +44,15 @@ function drawGanttChart(tasks) {
   });
 
   const options = {
-    width: '100%',
-    height: 200,
+    title: 'Gantt Chart',
+    width: 900,
+    height: 500,
+    chartArea: {
+      left: 100, // Adjust this value to move the chart to the right
+      top: 20,
+      width: '100%', // Adjust width to fit within the new chart area
+      height: '100%',
+    },
     timeline: {
       colorByRowLabel: true,
     },
@@ -72,12 +79,11 @@ function drawPieChart(tasks) {
 
   const options = {
     title: 'Task Status Distribution',
-    backgroundColor: 'transparent',
     is3D: true,
-    width: 500,
-    height: 250,
-    chartArea: { width: '90%', height: '80%' },
-    colors: ['#92211F', '#92641F', '#1F4692', '#59921F'],
+    width: 900,
+    height: 500,
+    chartArea: { width: '100%', height: '100%' },
+    colors: ['#4CAF50', '#FFC107', '#F44336', '#2196F3'],
   };
 
   const container = document.getElementById('pie');

@@ -1,3 +1,18 @@
+:root {
+  --bar: #3D437D;
+  --bg: #C2C5D2;
+  --hover: #54C6FF;
+  --container: #171D35;
+  --KB_bl: #92211F;
+  --KB_pro:#92641F;
+  --KB_test:#1F4692;
+  --KB_fin:#59921F;
+  --green:#3BB800;
+  --red:#F30000;
+  --yellow:#F3CC00;
+  --container2:#1E2646;
+  --font-family: "Plus Jakarta Sans", sans-serif;
+}
 *{
     box-sizing: border-box;
     margin: 0;
@@ -295,38 +310,202 @@ main{
     place-items: center;
 }
 
+/* Custom modal class */
+.add_filetask {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  overflow: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+.add_filetask .modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Close Button */
+.close-btn {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
 .cards-container{
-    display: flex;
-    width: 100%;
-    padding: 10px;
+  display: flex;
+  width: 100%;
+  padding: 10px;
+
 }
 
 .cards-container > *{
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .cards-container h5{
-    padding: 10px;
-    width: 200px;
-    border-radius: 10px;
+  padding: 10px;
+  width: 270px;
+  border-radius: 10px;
 }
 
-.backlogs h5{
-    background-color: #92211F;
+.backlogs h5 {
+
+  background-color: #92211F;
 }
 
-.in-progress h5{
-    background-color: #92641F;
+.in-progress h5 {
+  background-color: #92641F;
 }
 
-.testing h5{
-    background-color: #1F4692;
+.testing h5 {
+  background-color: #1F4692;
 }
 
-.finished h5{
-    background-color: #59921F;
+.finished h5 {
+  background-color: #59921F;
 }
 
+.Backlog{
+  background-color:var(--KB_bl);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.InProgress{
+  background-color:var(--KB_pro);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Testing{
+  background-color:var(--KB_test);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Finished{
+  background-color:var(--KB_fin);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-card {
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 270px;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; 
+}
+
+.task-card h3 {
+  margin-top: 15px;
+  margin-left: 15px;
+  font-size: 16px;
+}
+
+.task-card section {
+  margin-bottom: 0.5rem;
+  margin-top: 15px;
+  margin-left: 15px;
+  font-size: 14px;
+}
+
+.task-card p {
+  display: flex;
+  align-items: center;
+  margin: 10px 5px 0 45px;
+  font-size: 12px;
+}
+.delete1{
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  margin: 0 0 0 210px;
+  background: none;
+  border: none;
+
+}
+.delete1 img{
+  height: 20px;
+  width: 20px;
+  transition: all 0.3s ease; 
+}
+.delete1:hover img {
+  transform: scale(1.2); 
+  content: url('../../images/trash_open.png');
+}
+
+.taskcard img {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  margin: 5px 0 0 15px;
+  background-color: black;
+  border-radius: 50%;
+}
+.priority {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: var(--container);
+  color: var(--green);
+  text-align: center;
+}
+.High {
+  color: var(--red);
+}
+
+.Medium {
+  color: var(--yellow);
+}
+
+.Low {
+  color: var(--green);
+}
+
+.is-dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-btn {
+  display: none; /* Hides the confirm button */
+}
 #announcement .container{
     width: 100%;
     max-width: 85%;
