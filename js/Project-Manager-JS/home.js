@@ -368,8 +368,9 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((data) => {
                 if (data.success) {
                     previewItem.remove();
+
                 } else {
-                    alert("Failed to delete the file. Please try again.");
+                    showToast("Failed to delete the file. Please try again.", 'error');
                 }
             })
             .catch((error) => {
@@ -441,7 +442,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   async function deleteAnnouncement(announcementId) {
-    console.log("Initiating fetch to delete announcement with ID:", announcementId);
   
     try {
       const response = await fetch(`../../controller/delete_announcement.php`, {
@@ -452,14 +452,12 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ id: announcementId }),
       });
   
-      console.log("Fetch completed");
       const result = await response.json();
-      console.log("Response from server:", result);
   
       if (result.success) {
-        console.log("Announcement deleted successfully");
+        showToast("Announcement deleted successfully", 'success');
       } else {
-        console.error("Failed to delete announcement:", result.message);
+        showModal("Failed to delete announcement", 'error');
       }
     } catch (error) {
       console.error("Error during fetch:", error);
@@ -519,3 +517,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+

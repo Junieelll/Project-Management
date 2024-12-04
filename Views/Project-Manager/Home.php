@@ -23,6 +23,8 @@ if (!isset($_SESSION['user_id'])) {
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript"src="../../js/Project-Manager-JS/ganttChart.js"></script>
     <script src="../../js/Project-Manager-JS/drag.js" defer></script>
 </head>
 
@@ -136,7 +138,7 @@ if (!isset($_SESSION['user_id'])) {
           </div>
 
           <!--view task-->
-          <?php include './Modal.php'; ?>
+          <?php include 'Modal.php'; ?>
           <!--end of view task-->
 
       <div class="project-content">
@@ -174,7 +176,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>
-      <p>This is the progress tracking section.</p>
+    <div id="timeline" style="width: 900px; height: 500px;"></div>
     </div>
 
     <div id="postAnnouncementModal" class="modal">
@@ -263,7 +265,7 @@ if (!isset($_SESSION['user_id'])) {
         <h4>Confirm Deletion</h4>
         <p>Are you sure you want to delete this announcement?</p>
         <div class="action-btns">
-          <button id="confirmDelete" class="confirm-btn">Confirm</button>
+          <button id="confirmDelete">Confirm</button>
           <button id="cancelDelete" class="cancel-btn">Cancel</button>
         </div>
       </div>

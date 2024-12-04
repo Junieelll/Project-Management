@@ -135,10 +135,10 @@ function closeModal() {
 }
 
 // Event listener for close button
-closeModalButton.addEventListener('click', closeModal);
+//closeModalButton.addEventListener('click', closeModal);
 
 // Optional: Close modal when overlay is clicked
-modalOverlay.addEventListener('click', closeModal);
+//modalOverlay.addEventListener('click', closeModal);
 
 // Function to initialize drag-and-drop functionality
 function initializeDragAndDrop(statusChanges) {
