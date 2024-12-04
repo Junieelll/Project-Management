@@ -12,17 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const projectId = urlParams.get('project_id');
 
     openModalBtn.addEventListener('click', function () {
-        modal.style.display = 'block';
+        modal.classList.add('show');
     });
 
     closeModalBtn.addEventListener('click', function () {
-        modal.style.display = 'none';
+        modal.classList.remove('show');
     });
 
     // Close modal when clicking outside
     window.addEventListener('click', function (e) {
         if (e.target === modal) {
-            modal.style.display = 'none';
+            modal.classList.remove('show');
         }
     });
 

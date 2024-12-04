@@ -144,7 +144,7 @@ if (!isset($_SESSION['user_id'])) {
           </div>
 
           <!-- Modal structure -->
-<!-- <div class="modal" id="taskModal">
+<div class="modal" id="taskModal">
     <div class="modal-content">
         <div class="modal-header">
             <h2>Add New Task</h2>
@@ -166,7 +166,7 @@ if (!isset($_SESSION['user_id'])) {
             <div>
                 <label for="assignedUserSearch">Assigned User:</label>
                 <input type="text" id="assignedUserSearch" placeholder="Search for a user" required>
-                <div class="search-result" style="display: none;"></div>
+                <div class="search-result"></div>
             </div>
             <input type="hidden" name="assigned_user">
             <div>
@@ -195,8 +195,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </form>
     </div>
-</div> -->
-
+</div> 
 
           <!--view task-->
           <?php include './Modal.php'; ?>
@@ -287,6 +286,29 @@ if (!isset($_SESSION['user_id'])) {
         </div>
       </div>
     </div>
+
+    <div class="recent-files">
+  <div class="header">
+    <h2>Recent Task Files</h2>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>File Name</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Assigned User</th>
+        <th>Status</th>
+        <th>Date Submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>
+
 
     <!-- Manage Users Section -->
     <div class="manage-users">

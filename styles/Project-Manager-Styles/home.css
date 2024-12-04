@@ -1075,6 +1075,33 @@ main{
     overflow-y: auto;
 }
 
+.recent-files{
+    margin: 20px 0;
+}
+
+.recent-files table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .recent-files th, .recent-files td {
+    border-bottom: 1px solid #1E2646;
+    padding: 8px;
+    text-align: left;
+    font-size: 13px;
+  }
+  
+  .recent-files th {
+    background-color: #1E2646;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .recent-files tr:hover {
+    background-color: #1E2646;
+  }
+
 
 /*----------------------------------- FOOTER ------------------------------*/
 

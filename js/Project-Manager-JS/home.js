@@ -516,6 +516,59 @@ document.addEventListener("DOMContentLoaded", () => {
         currentImageIndex === currentImages.length - 1 ? "none" : "block";
     }
   }
+
+  fetchRecentTaskFiles(projectId);
+
+  function fetchRecentTaskFiles(projectId) {
+    try {
+        fetch(`../../controller/fetch_recent_files.php?project_id=${projectId}`)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    renderRecentTaskFiles(result.data);
+                } else {
+                    console.error("Failed to fetch recent task files:", result.message);
+                }
+            })
+            .catch(error => console.error("Error fetching recent task files:", error));
+    } catch (error) {
+        console.error("Unexpected error:", error);
+    }
+}
+
+function renderRecentTaskFiles(files) {
+    const tableBody = document.querySelector(".recent-files tbody");
+    tableBody.innerHTML = ""; // Clear previous rows.
+
+    files.forEach(file => {
+        const readableDueDate = new Date(file.due_date).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        const readableSubmittedDate = new Date(file.date_submitted).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${file.task_title}</td>
+            <td>${file.file_name}</td>
+            <td>${readableDueDate}</td>
+            <td>${file.priority}</td>
+            <td>${file.assigned_user_name}</td>
+            <td>${file.status}</td>
+            <td>${readableSubmittedDate}</td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+}
+
 });
 
 
