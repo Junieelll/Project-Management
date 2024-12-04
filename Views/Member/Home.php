@@ -23,6 +23,10 @@ if (!isset($_SESSION['user_id'])) {
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="../../js/Member-JS/ganttChartUser.js"></script>
+    <script src="../../js/Member-JS/dragUser.js" defer></script>
+  <link rel="stylesheets" src="../../styles/Member-Styles/home.css"/>
 </head>
 
 <body>
@@ -111,7 +115,6 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="toolbar">
-          <button class="add-Task-btn">Add Task</button>
           <div class="search-input">
             <input type="text" name="" id="" placeholder="Search" />
             <i class="fa-solid fa-magnifying-glass search2"></i>
@@ -129,6 +132,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
           </div>
           <button class="sort-btn"><i class="fa-solid fa-sort"></i> Sort</button>
+          <button id="confirm-bulk-status-change">Confirm Kanban Changes</button>
         </div>
       </div>
 
@@ -146,26 +150,49 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="cards-container">
-          <div class="backlogs">
-            <h5>BACKLOG</h5>
+                <div class="backlogs" id="Backlog">
+                  <h5>BACKLOG</h5>
+                </div>
+
+                <div class="in-progress" id="InProgress">
+                  <h5>IN PROGRESS</h5>
+                </div>
+
+                <div class="testing" id="Testing">
+                  <h5>TESTING</h5>
+                </div>
+
+                <div class="finished" id="Finished">
+                  <h5>FINISHED</h5>
+                </div>
+              </div>
           </div>
-          <div class="in-progress">
-            <h5>IN PROGRESS</h5>
-          </div>
-          <div class="testing">
-            <h5>TESTING</h5>
-          </div>
-          <div class="finished">
-            <h5>FINISHED</h5>
-          </div>
-        </div>
       </div>
+
+     <!-- Modal for File Upload -->
+<div class="add_filetask" id="fileUploadModal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2>Upload Your Files</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="hidden" id="taskIdInput" name="task_id" /> <!-- Hidden input for task_id -->
+            <input type="file" name="files[]" id="fileInput" multiple required />
+            <br>
+            <button type="submit">Upload</button>
+        </form>
     </div>
-    </div>
+</div>
+
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>
-      <p>This is the progress tracking section.</p>
+      <div class="gantt">
+      <div id="timeline" style="width: 900px; height: 500px;"></div>
+      </div>
+      <div class="piechart">
+      <div id="pie" style="width: 900px; height: 500px;"></div>
+      </div>
+    </div>
     </div>
 
     <div id="imageModal" class="imageModal">

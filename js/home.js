@@ -2,9 +2,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const projectsList = document.querySelector('.projects-list');
 
     projectsList.addEventListener('click', function (event) {
+        // Identify the clicked delete button
+        const clickedDeleteButton = event.target.closest('#deleteProject');
         const clickedOptionButton = event.target.closest('.option-btn');
         const clickedOptionContainer = event.target.closest('.option-container');
 
+        if (clickedDeleteButton) {
+            // Find the parent project card and its ID
+            const projectCard = clickedDeleteButton.closest('.project-card');
+            const projectId = projectCard.dataset.projectId;
+
+            // Confirmation dialog
+            if (confirm("Are you sure you want to delete this project? This action cannot be undone.")) {
+                deleteProject(projectId, projectCard);
+            }
+        }
+
+        // Toggle options menu
         if (clickedOptionButton) {
             const optionContainer = clickedOptionButton.nextElementSibling;
 
@@ -22,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+    
 
     const addProjectBtnHome = document.getElementById('addProjectBtn');
 
@@ -91,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <h5 class="project-title">${project.project_name}</h5>
                                     <button class="option-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                     <div class="option-container">
-                                        <button><i class="fa-regular fa-box-archive"></i> Archive</button>
-                                        <button><i class="fa-light fa-trash"></i> Delete</button>
+                                        <button ><i class="fa-regular fa-box-archive"></i> Archive</button>
+                                        <button id="deleteProject"><i class="fa-light fa-trash"></i> Delete</button>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -152,9 +167,30 @@ function checkUserRole(projectId) {
             console.error('Error:', error);
         });
 }
-    
+function deleteProject(projectId, projectCard) {
+    fetch('../controller/delete_project.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ project_id: projectId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                projectCard.remove(); // Remove the project card from the UI
+            } else {
+                alert(`Failed to delete project: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting project:', error);
+        });
+}   
     
 
     fetchProjects();
 
 });
+

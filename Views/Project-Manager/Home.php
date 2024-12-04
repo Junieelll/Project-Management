@@ -17,15 +17,21 @@ if (!isset($_SESSION['user_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
   <link rel="stylesheet" href="../../styles/Project-Manager-Styles/home.css" />
+  <link rel="stylesheet" href="../../styles/Project-Manager-Styles/dashboard.css" />
   <link
     rel="stylesheet"
     href="https://atugatran.github.io/FontAwesome6Pro/css/all.min.css" />
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet" />
+  
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript"src="../../js/Project-Manager-JS/ganttChart.js"></script>
     <script src="../../js/Project-Manager-JS/drag.js" defer></script>
+    <script type="text/javascript" src="../../js/Project-Manager-JS/ganttChart.js"></script>
+    <script src="../../js/Project-Manager-JS/modal.js"></script>
+
 </head>
 
 <body>
@@ -115,7 +121,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="toolbar">
-            <button class="add-Task-btn">Add Task</button>
+            <button class="add-Task-btn" id=openModal>Add Task</button>
               <div class="search-input">
                   <input type="text" name="" id="" placeholder="Search" />
                   <i class="fa-solid fa-magnifying-glass search2"></i>
@@ -137,8 +143,63 @@ if (!isset($_SESSION['user_id'])) {
             </div>
           </div>
 
+          <!-- Modal structure -->
+<!-- <div class="modal" id="taskModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Task</h2>
+            <button class="close-btn" id="closeModal">&times;</button>
+        </div>
+        <form id="addTaskForm">
+            <div>
+                <label for="taskTitle">Task Title:</label>
+                <input type="text" id="taskTitle" name="task_title" required>
+            </div>
+            <div>
+                <label for="note">Note:</label>
+                <textarea id="note" name="note"></textarea>
+            </div>
+            <div>
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="due_date" required>
+            </div>
+            <div>
+                <label for="assignedUserSearch">Assigned User:</label>
+                <input type="text" id="assignedUserSearch" placeholder="Search for a user" required>
+                <div class="search-result" style="display: none;"></div>
+            </div>
+            <input type="hidden" name="assigned_user">
+            <div>
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority" required>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            <div>
+                <label for="taskGroup">Task Group:</label>
+                <input type="text" id="taskGroup" name="task_group" required>
+            </div>
+            <input type="hidden" name="project_id" value="<?php echo $_GET['project_id']; ?>">
+            <div class="modal-footer">
+                <button type="submit">Add Task</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+
           <!--view task-->
-          <?php include 'Modal.php'; ?>
+          <?php include './Modal.php'; ?>
           <!--end of view task-->
 
       <div class="project-content">
@@ -176,7 +237,90 @@ if (!isset($_SESSION['user_id'])) {
 
     <div id="progress-tracking" class="tab-content">
       <h2>Progress Tracking Content</h2>
-    <div id="timeline" style="width: 900px; height: 500px;"></div>
+      <div class="dashboard">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <h1>Dashboard</h1>
+    </header>
+
+    
+
+    <!-- Dashboard Stats -->
+    <div class="stats">
+      <div class="stat-item">
+        <h2>Total Task</h2>
+        <p>6</p>
+      </div>
+      <div class="stat-item">
+        <h2>Task In-Progress</h2>
+        <p>21</p>
+      </div>
+      <div class="stat-item">
+        <h2>Task Finished</h2>
+        <p>2</p>
+      </div>
+      <div class="stat-item">
+        <h2>Total User</h2>
+        <p>12</p>
+      </div>
+    </div>
+    <div class="ganttchart">
+    <div class="gantt">
+        <div id="timeline" style="width: 900px; height: 200px;"></div>
+        </div>
+    </div>
+    <!-- Dashboard Details -->
+    <div class="tasks-overview">
+      <div class="tasks">
+        <h3>Tasks</h3>
+        <ul>
+        </ul>
+      </div>
+
+      <div class="status">
+        <h3>Project Status</h3>
+        <div class="chart">
+        <div id="piechart" style="width: 500px; height: 250px;"></div>
+        <div class="piechart">
+        <div id="pie" style="width: 500px; height: 250px;"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Users Section -->
+    <div class="manage-users">
+      <header class="header">
+        <h2>Manage Users</h2>
+      </header>
+
+      <div class="users-container">
+        <div class="user-card owner">
+          <div class="badge">Owner</div>
+          <div class="avatar">W</div>
+          <h3>WorkDo</h3>
+          <p>company@example.com</p>
+          <div class="user-stats">
+            <span>9 Tasks</span>
+          </div>
+        </div>
+
+        <div class="user-card">
+          <div class="badge">Member</div>
+          <div class="avatar">
+            <img src="https://via.placeholder.com/50" alt="User">
+          </div>
+          <h3>Alex</h3>
+          <p>alex@example.com</p>
+        </div>
+
+
+
+        <!-- Add more user cards as needed -->
+      </div>
+    </div>
+  </div>
+
     </div>
 
     <div id="postAnnouncementModal" class="modal">
@@ -218,7 +362,7 @@ if (!isset($_SESSION['user_id'])) {
           </div>
         </form>
       </div>
-    </div>
+    </div>+
 
     <div id="editAnnouncementModal" class="modal">
       <div class="modal-content">
@@ -296,6 +440,8 @@ if (!isset($_SESSION['user_id'])) {
     <p class="copyright">ⓒ 2024 DevSphere, Inc</p>
   </footer>
 
+  <script type="text/javascript" src="../../js/Project-Manager-JS/dashboardchart.js"></script>
+  <script type="text/javascript" src="../../js/Project-Manager-JS/dashboardadmin.js"></script>
   <script src="../../js/Project-Manager-JS/home.js"></script>
 </body>
 

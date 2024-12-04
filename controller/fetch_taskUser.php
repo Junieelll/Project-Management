@@ -1,13 +1,14 @@
 <?php
 include '../config/conn.php';
 session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Fetch all tasks for a specific project along with the assigned user's name and profile picture
     $projectId = $_GET['project_id'] ?? null;
-    $userid = $_SESSION['user_id'] ?? null;
+    $userId = $_SESSION['user_id'] ?? null;
 
-    if (!$projectId || $userid) {
-        echo json_encode(['success' => false, 'message' => 'Project ID and User ID is required.']);
+    if (!$projectId || !$userId) {
+        echo json_encode(['success' => false, 'message' => 'Project ID and User ID are required.']);
         exit;
     }
 
@@ -23,14 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $stmt = $conn->prepare($query);
 
-    // Bind the project ID parameter
-    $stmt->bind_param('is', $projectId, $userid);
+    if (!$stmt) {
+        echo json_encode(['success' => false, 'message' => 'Failed to prepare the query.']);
+        exit;
+    }
+
+    // Bind the project ID and user ID parameters
+    $stmt->bind_param('is', $projectId, $userId);
 
     if ($stmt->execute()) {
         $result = $stmt->get_result();
         $tasks = $result->fetch_all(MYSQLI_ASSOC);
-
-        // Format dates for each task
 
         echo json_encode(['success' => true, 'tasks' => $tasks]);
     } else {
@@ -40,5 +44,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt->close();
     $conn->close();
 }
-
 ?>
